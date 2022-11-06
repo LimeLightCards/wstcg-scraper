@@ -1,0 +1,27 @@
+{
+  "name": "wstcg-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "weiss:sets": "ts-node scripts/get-sets",
+    "weiss:allsetcards": "ts-node scripts/get-all-set-cards",
+    "weiss:allsetcardsdata": "ts-node scripts/get-all-set-cards-data",
+    "weiss:allcardimages": "ts-node scripts/get-card-images",
+    "weiss:everything": "ts-node scripts/do-everything"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LimeLightCards/wstcg-scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LimeLightCards/wstcg-scraper/issues"
+  },
+  "homepage": "https://github.com/LimeLightCards/wstcg-scraper#readme",
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "git-clone-repo": "^1.0.0",
+    "lodash": "^4.17.21",
+    "ts-node": "^10.9.1",
+    "x-ray-scraper": "^3.0.6"
+  }
+}
