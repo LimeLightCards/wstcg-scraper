@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "weiss:automated": "ts-node scripts/do-everything",
+    "weiss:getcache": "ts-node scripts/get-cache",
     "weiss:sets": "ts-node scripts/get-sets",
     "weiss:allsetcards": "ts-node scripts/get-all-set-cards",
     "weiss:allsetcardsdata": "ts-node scripts/get-all-set-cards-data",
@@ -18,9 +20,12 @@
   },
   "homepage": "https://github.com/LimeLightCards/wstcg-scraper#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "fs-extra": "^10.1.0",
     "git-clone-repo": "^1.0.0",
     "lodash": "^4.17.21",
+    "md5-file": "^5.0.0",
+    "simple-git": "^3.14.1",
     "ts-node": "^10.9.1",
     "x-ray-scraper": "^3.0.6"
   }
