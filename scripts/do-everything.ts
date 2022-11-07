@@ -104,20 +104,25 @@ const git = simpleGit({
   
   // update repo
   const updateRepo = async () => {
-    const url = `https://${process.env.SCRAPER_PAT}@github.com:LimeLightCards/scraper-data.git`;
+    const url = `https://${process.env.SCRAPER_USERNAME}:${process.env.SCRAPER_PAT}@github.com/LimeLightCards/scraper-data.git`;
 
-    await git.addConfig('user.name', process.env.SCRAPER_NAME);
-    await git.addConfig('user.email', process.env.SCRAPER_EMAIL);
-    
-    await git.addRemote('origin', url);
-
-    await git.add('.');
-
-    await git.commit('Add new sets');
-
-    await git.push('origin', 'master', { '--force': null });
+    try {
+      await git.addConfig('user.name', process.env.SCRAPER_NAME);
+      await git.addConfig('user.email', process.env.SCRAPER_EMAIL);
+      
+      await git.removeRemote('origin');
+      await git.addRemote('origin', url);
+  
+      await git.add('.');
+  
+      await git.commit('[Automated] Add new sets');
+  
+      await git.push('origin', 'main');
+    } catch(e) {
+      console.error(e);
+    }
   };
 
-  updateRepo();
+  await updateRepo();
 
 })();
