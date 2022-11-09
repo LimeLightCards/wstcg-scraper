@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/LimeLightCards/wstcg-scraper#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "fs-extra": "^10.1.0",
     "git-clone-repo": "^1.0.0",
