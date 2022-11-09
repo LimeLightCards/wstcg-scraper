@@ -12,15 +12,7 @@ import { getCardImage }  from './helpers/get-card-image';
 
 dotenv.config();
 
-const git = simpleGit({
-  baseDir: 'cache'
-});
-
 (async () => {
-
-  fs.ensureDirSync('./cache');
-  fs.ensureDirSync('./cache/cardimages');
-  fs.ensureDirSync('./cache/setcards');
 
   // get cache
   cloneRepo('LimeLightCards/scraper-data', { destination: 'cache' });
@@ -105,6 +97,10 @@ const git = simpleGit({
   // update repo
   const updateRepo = async () => {
     const url = `https://${process.env.SCRAPER_USERNAME}:${process.env.SCRAPER_PAT}@github.com/LimeLightCards/scraper-data.git`;
+
+    const git = simpleGit({
+      baseDir: 'cache'
+    });
 
     try {
       await git.addConfig('user.name', process.env.SCRAPER_NAME);
