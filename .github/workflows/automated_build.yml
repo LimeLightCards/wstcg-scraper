@@ -1,0 +1,33 @@
+name: Nightly Scrape Check
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    name: Build to Netlify
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: npm install
+
+    - run: npm run weiss:automated
+      env:
+        SCRAPER_EMAIL: ${{ secrets.SCRAPER_EMAIL }}
+        SCRAPER_NAME: ${{ secrets.SCRAPER_NAME }}
+        SCRAPER_USERNAME: ${{ secrets.SCRAPER_USERNAME }}
+        SCRAPER_PAT: ${{ secrets.SCRAPER_PAT }}

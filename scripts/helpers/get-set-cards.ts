@@ -36,8 +36,6 @@ export async function getSetCards(setCode: string) {
   const maxPages = await getMaxPages();
   const pagesByNumber = Array(maxPages).fill(0).map((x, i) => i + 1);
 
-  console.log(maxPages, pagesByNumber);
-
   const unflatCards = await Promise.all(pagesByNumber.map(pageNumber => {
     return new Promise((resolve) => {
       setTimeout(async () => {
