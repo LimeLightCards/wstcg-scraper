@@ -14,10 +14,6 @@ dotenv.config();
 
 (async () => {
 
-  fs.ensureDirSync('./cache');
-  fs.ensureDirSync('./cache/cardimages');
-  fs.ensureDirSync('./cache/setcards');
-
   // get cache
   cloneRepo('LimeLightCards/scraper-data', { destination: 'cache' });
   
