@@ -1,34 +1,39 @@
 
-const x = require('x-ray-scraper');
-const cheerio = require('cheerio');
 
-/*
-For some reason, this skips over a few steps and misses some fields. I'm not sure why.
-*/
 export async function getCard(cardId: string) {
 
-  const cardDataHtml = await x(`https://en.ws-tcg.com/cardlist/list/?cardno=${cardId}`, '#cardDetail@html');
-  const $ = cheerio.load(cardDataHtml, null, false);
+  const res = await fetch(`https://www.encoredecks.com/api/card?cardcode=${cardId}`);
+  const resJson = await res.json();
+
+  // missing expansion, image needs correction, no flavor text
+
+  console.log(resJson, resJson.locale);
+
+  const cardData: any = {
+    name: resJson.locale.EN.name,
+    code: cardId,
+    rarity: resJson.rarity,
+    expansion: '',
+    side: resJson.side,
+    type: resJson.cardtype,
+    color: resJson.colour.substring(0, 1),
+    level: resJson.level || 0,
+    cost: resJson.cost || 0,
+    power: resJson.power || 0,
+    soul: resJson.soul || 0,
+    trigger: resJson.trigger,
+    attributes: resJson.locale.EN.attributes.filter(Boolean),
+    ability: resJson.locale.EN.ability.filter(Boolean),
+    flavorText: '',
+    set: resJson.set,
+    release: resJson.release,
+    sid: resJson.sid,
+    image: '',
+  };
 
   /*
-  const cardData = await x(`https://en.ws-tcg.com/cardlist/list/?cardno=${cardId}`, '#cardDetail table', {
-    name: '.kana@text',
-    rarity: '.cell_4@text',
-    expansion: 'tr:nth-child(3) td:nth-child(1)@text',
-    side: 'tr:nth-child(3) img@src',
-    type: 'tr:nth-child(4) td:nth-child(1)@text',
-    color: 'tr:nth-child(4) img@src',
-    level: 'tr:nth-child(5) td:nth-child(1)@text',
-    cost: 'tr:nth-child(5) td:nth-child(2)@text',
-    power: 'tr:nth-child(6) td:nth-child(1)@text',
-    soul: 'tr:nth-child(6) td:nth-child(2)@text',
-    trigger: 'tr:nth-child(7) td:nth-child(1)@text',
-    attribute: 'tr:nth-child(7) td:nth-child(2)@text',
-    ability: 'tr:nth-child(8) td:nth-child(1)@text',
-    flavorText: 'tr:nth-child(9) td:nth-child(1)@text',
-    image: 'img@src'
-  });
-  */
+  const cardDataHtml = await x(`https://en.ws-tcg.com/cardlist/list/?cardno=${cardId}`, '#cardDetail@html');
+  const $ = cheerio.load(cardDataHtml, null, false);
 
   console.log($.html())
 
@@ -65,6 +70,7 @@ export async function getCard(cardId: string) {
 
   // cardData.cost = +cardData.cost;
   // cardData.power = +cardData.power;
+  */
 
   return cardData;
 
